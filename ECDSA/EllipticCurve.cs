@@ -30,7 +30,16 @@ namespace ECDSA
             Byte[] bytes = new byte[20]; //160 bit string;
             var rng = new RNGCryptoServiceProvider();
             rng.GetBytes(bytes);
-            E.seed = Convert.ToBase64String(bytes);
+
+
+
+            string seedE = Convert.ToBase64String(bytes);
+            E.seed = seedE;
+            SHA1 sha1 = SHA1.Create();
+
+            Byte[] h = sha1.ComputeHash(bytes);
+
+
 
             return E;
 

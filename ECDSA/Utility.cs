@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Numerics;
+using System.Collections;
 
 namespace ECDSA
 {
@@ -19,9 +20,9 @@ namespace ECDSA
         {
             return (char)(index + 96);
         }
-        public static BigInteger Modulo( BigInteger a, BigInteger b) // return a mod b
+        public static BigInteger Modulo(BigInteger a, BigInteger b) // return a mod b
         {
-            if (a%b < 0)
+            if (a % b < 0)
             {
                 return b + a % b;
             }
@@ -116,6 +117,32 @@ namespace ECDSA
             }
             */
         }
+
+
+        public static string PrintBitArray(BitArray bits)
+        {
+            var sb = new StringBuilder();
+            for (int i = 0; i < bits.Count; i++)
+            {
+                char c = bits[i] ? '1' : '0';
+                sb.Append(c);
+            }
+
+            return sb.ToString();
+        }
+
+        public static BitArray GetRightMost(BitArray bitArray, int number)
+        {
+            BitArray RightMost = new BitArray(number);
+            int len = bitArray.Count;
+            for(int i = 0 ; i < number; i++)
+            {
+                RightMost[i] = bitArray[len-number+i] ;
+            }
+
+            return RightMost;
+        }
+
 
     }
 }
