@@ -1,0 +1,12 @@
+E:\hoc tap\code\KLTN\ECDSA\bin\Debug\ECDSA.exe.config
+E:\hoc tap\code\KLTN\ECDSA\bin\Debug\ECDSA.exe
+E:\hoc tap\code\KLTN\ECDSA\bin\Debug\ECDSA.pdb
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.csprojAssemblyReference.cache
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.Form1.resources
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.Properties.Resources.resources
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.csproj.GenerateResource.cache
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.csproj.CoreCompileInputs.cache
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.exe
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.pdb
+E:\hoc tap\code\KLTN\ECDSA\bin\Debug\System.Threading.AccessControl.dll
+E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.csproj.CopyComplete

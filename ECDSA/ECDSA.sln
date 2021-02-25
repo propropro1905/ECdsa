@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30709.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECDSA", "ECDSA.csproj", "{FC116337-F2DD-4014-9FA4-4AABAB409CBF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECDSATest", "..\ECDSATest\ECDSATest.csproj", "{7B0C7332-603B-44C5-80D4-49951BD97F2E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC116337-F2DD-4014-9FA4-4AABAB409CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC116337-F2DD-4014-9FA4-4AABAB409CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC116337-F2DD-4014-9FA4-4AABAB409CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC116337-F2DD-4014-9FA4-4AABAB409CBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B0C7332-603B-44C5-80D4-49951BD97F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B0C7332-603B-44C5-80D4-49951BD97F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B0C7332-603B-44C5-80D4-49951BD97F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B0C7332-603B-44C5-80D4-49951BD97F2E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6BEBF666-EF00-4E06-804D-8264A7A070D6}
+	EndGlobalSection
+EndGlobal
