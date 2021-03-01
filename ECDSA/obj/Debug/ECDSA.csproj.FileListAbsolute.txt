@@ -10,3 +10,15 @@ E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.exe
 E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.pdb
 E:\hoc tap\code\KLTN\ECDSA\bin\Debug\System.Threading.AccessControl.dll
 E:\hoc tap\code\KLTN\ECDSA\obj\Debug\ECDSA.csproj.CopyComplete
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\bin\Debug\ECDSA.exe.config
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\bin\Debug\ECDSA.exe
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\bin\Debug\ECDSA.pdb
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\bin\Debug\System.Threading.AccessControl.dll
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.csprojAssemblyReference.cache
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.Form1.resources
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.Properties.Resources.resources
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.csproj.GenerateResource.cache
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.csproj.CoreCompileInputs.cache
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.csproj.CopyComplete
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.exe
+C:\giang\hoc tap\code\ecdsa\ECdsa\ECDSA\obj\Debug\ECDSA.pdb

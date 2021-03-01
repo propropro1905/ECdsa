@@ -160,5 +160,25 @@ namespace ECDSA
             bitarray.CopyTo(bytes, 0);
             return bytes;
         }
+        public static string BitArrayToStringFormat(BitArray bitt)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var bit in bitt)
+            {
+                if ((bool)bit) sb.Append("1");
+                else sb.Append("0");
+            }
+            return sb.ToString();
+        }
+        public static BitArray StringToBitArray(string s)
+        {
+            BitArray bitt = new BitArray(s.Length);
+            for (int i = 0;i<s.Length;i++)
+            {
+                if (s[i] == '0') bitt[i] = false;
+                else bitt[i] = true;
+            }
+            return bitt;
+        }
     }
 }

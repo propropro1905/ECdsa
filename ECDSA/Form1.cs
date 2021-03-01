@@ -36,10 +36,12 @@ namespace ECDSA
                              BigInteger.Parse("50409424367856687823329329772725313561507427718056025805370372766445944710765"));
         Point Q_ = new Point(BigInteger.Parse("8933175425388757879756343513310251288799430421578096633469480956139425792135469"),
                          BigInteger.Parse("940571569069746711255388278377423954830336755847954312017789871642698418271"));
+
         private void button1_Click(object sender, EventArgs e)
         {
-            Point R_ = Point.Doubling(P_, a, x);
-            richTextBox1.Text = (R_.X.ToString() +" "+ R_.Y.ToString());
+            EllipticCurve E = EllipticCurve.ECRandomGenerator(x);
+            richTextBox1.Text = ("Elliptic Curve: y^2 = x^3 + " + E.A + " + " + E.B + "(mod " + E.P + ") /n Seed :" + E.Seed);
+
         }
     }
 }
