@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Numerics;
 using System.Security.Cryptography;
-
+using System.Collections;
 namespace ECDSA
 {
     class EllipticCurve
@@ -38,9 +38,18 @@ namespace ECDSA
             SHA1 sha1 = SHA1.Create();
 
             Byte[] h = sha1.ComputeHash(bytes);
+            // c0 is the rightmost v bit of h
+            BitArray w0 = Utility.GetRightMost(new BitArray(h), v);
+            // Make sure r<p
+            if (w0[0]) w0[0] = false;
 
-
-
+            BigInteger z = new BigInteger(bytes);
+            string[] w = new string[s+1];
+            w[0] = Encoding.Default.GetString(Utility.BitArrayToBytes(w0));
+            for (int i =1; i <= s; i++)
+            {
+                BigInteger a = Utility.Modulo(z + i, BigInteger.Pow(2, 160));
+            }
             return E;
 
         }

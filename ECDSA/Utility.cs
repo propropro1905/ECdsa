@@ -143,6 +143,22 @@ namespace ECDSA
             return RightMost;
         }
 
+        public static byte[] BitArrayToBytes(BitArray bitarray)
+        {
+            if (bitarray.Length == 0)
+            {
+                throw new System.ArgumentException("must have at least length 1", "bitarray");
+            }
 
+            int num_bytes = bitarray.Length / 8;
+            if (bitarray.Length % 8 != 0)
+            {
+                num_bytes += 1;
+            }
+
+            var bytes = new byte[num_bytes];
+            bitarray.CopyTo(bytes, 0);
+            return bytes;
+        }
     }
 }
