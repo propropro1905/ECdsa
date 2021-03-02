@@ -26,12 +26,13 @@ namespace ECDSA
             int t = (int) Math.Ceiling(BigInteger.Log(p, 2));
             int s =  (int) Math.Floor((double) (t-1)/160);
             int v = t - 160*s ;
-            // get random 160 bit string seed
+            var rng = new RNGCryptoServiceProvider();
+
             BigInteger r = new BigInteger();
             do
             {
+                // get random 160 bit string seed
                 Byte[] bytes = new byte[20]; //160 bit string;
-                var rng = new RNGCryptoServiceProvider();
                 rng.GetBytes(bytes);
 
 
@@ -68,8 +69,17 @@ namespace ECDSA
                 }
                 r = new BigInteger(Utility.BitArrayToBytes(Utility.StringToBitArray(concate)));
             } while (r == 0 || Utility.Modulo(4 * r + 27,p) == 0);
-            E.A = r;
-            E.B = r;
+            //Random 128 bit interger such that q%p != 0
+            BigInteger q = new BigInteger();
+            do
+            {
+                Byte[] qx = new byte[16]; //128 bit integer;
+                rng.GetBytes(qx);
+                q = new BigInteger(qx);
+            } while (q % p == 0);
+            // a = rq^2, b= rq^3, r.b^2 = a^3 mod p
+            E.A = (r * q * q) % p;
+            E.B = (r*BigInteger.Pow(q,3))%p;
             E.P = p;
             return E;
         }

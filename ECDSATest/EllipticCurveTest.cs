@@ -11,8 +11,11 @@ namespace ECDSATest
         [TestMethod]
         public void TestRandomGenerator()
         {
-            EllipticCurve E = EllipticCurve.ECRandomGenerator(p);
-
+            for(int i = 0; i< 50; i++)
+            {
+                EllipticCurve E = EllipticCurve.ECRandomGenerator(p);
+                Assert.AreNotEqual(Utility.Modulo(4 * BigInteger.Pow(E.A,3) + 27 * BigInteger.Pow(E.B,2), p), 0);
+            }
         }
     }
 }

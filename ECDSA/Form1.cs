@@ -40,7 +40,7 @@ namespace ECDSA
         private void button1_Click(object sender, EventArgs e)
         {
             EllipticCurve E = EllipticCurve.ECRandomGenerator(x);
-            richTextBox1.Text = ("Elliptic Curve: y^2 = x^3 + " + E.A + " + " + E.B + "(mod " + E.P + ") /n Seed :" + E.Seed);
+            richTextBox1.Text = ("Elliptic Curve: y^2 = x^3 + " + E.A + " + " + E.B + "(mod " + E.P + ") \n Seed :" + E.Seed);
 
         }
     }
