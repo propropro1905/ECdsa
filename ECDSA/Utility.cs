@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Numerics;
 using System.Collections;
+using System.Security.Cryptography;
 
 namespace ECDSA
 {
@@ -34,7 +35,8 @@ namespace ECDSA
         /// Prime for big interger
         /// </summary>
         private static ThreadLocal<Random> s_Gen = new ThreadLocal<Random>(
-              () => {
+              () =>
+              {
                   return new Random();
               }
             );
@@ -135,9 +137,9 @@ namespace ECDSA
         {
             BitArray RightMost = new BitArray(number);
             int len = bitArray.Count;
-            for(int i = 0 ; i < number; i++)
+            for (int i = 0; i < number; i++)
             {
-                RightMost[i] = bitArray[len-number+i] ;
+                RightMost[i] = bitArray[len - number + i];
             }
 
             return RightMost;
@@ -173,12 +175,37 @@ namespace ECDSA
         public static BitArray StringToBitArray(string s)
         {
             BitArray bitt = new BitArray(s.Length);
-            for (int i = 0;i<s.Length;i++)
+            for (int i = 0; i < s.Length; i++)
             {
                 if (s[i] == '0') bitt[i] = false;
                 else bitt[i] = true;
             }
             return bitt;
+        }
+        public static BigInteger RandomIntegerBelow(BigInteger N)
+        {
+            byte[] bytes = N.ToByteArray();
+            BigInteger R;
+            Random r = new Random();
+
+            do
+            {
+                r.NextBytes(bytes);
+                bytes[bytes.Length - 1] &= (byte)0x7F; //force sign bit to positive
+                R = new BigInteger(bytes);
+            }
+            while (R >= N);
+            return R;
+        }
+        public static string byteArrayToBinaryString(Byte[] bytes)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Convert.ToString(bytes[bytes.Length - 1], 2));
+            for (int i = bytes.Length - 2; i >= 0; i--)
+            {
+                sb.Append(Convert.ToString(bytes[i], 2).PadLeft(8, '0')); //fill empty bit with 0
+            }
+            return sb.ToString();
         }
     }
 }

@@ -14,11 +14,31 @@ namespace ECDSA
         private BigInteger a;
         private BigInteger b;
         private string seed;
+        private BigInteger n; //order of g
+        private BigInteger h; // cofactor
+        public Point G;
         public BigInteger P { get => p; set => p = value; }
         public BigInteger A { get => a; set => a = value; }
         public BigInteger B { get => b; set => b = value; }
         public string Seed { get => seed; set => seed = value; }
+        public BigInteger N { get => n; set => n = value; }
+        public BigInteger H { get => h; set => h = value; }
+    
 
+        public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, string seed, Point g, BigInteger n, BigInteger h)
+        {
+            this.p = p;
+            this.a = a;
+            this.b = b;
+            this.seed = seed;
+            this.G = new Point(g.X, g.Y);
+            this.n = n;
+            this.h = h;
+        }
+        public EllipticCurve()
+        {
+
+        } 
         public static EllipticCurve ECRandomGenerator(BigInteger p)
         {
             EllipticCurve E = new EllipticCurve();

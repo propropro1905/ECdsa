@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 using System.Numerics;
 namespace ECDSA
 {
@@ -73,12 +74,13 @@ namespace ECDSA
             sb.Append("(" + P.x + "," + P.y + ")");
             return sb.ToString();
         }
-        public static Point Multiply(Point P, int n, int a, BigInteger p)
+        public static Point Multiply(Point P, BigInteger n, BigInteger a, BigInteger p)
         {
             Point Q = new Point(0, 0);
             Point R = P;
             // adding and doubling algorithm
-            string n_bin = Convert.ToString(n, 2);
+
+            string n_bin = Utility.byteArrayToBinaryString(n.ToByteArray());
             for (int i = n_bin.Length - 1; i >= 0; i--)
             {
                 if (n_bin[i] == '1')
