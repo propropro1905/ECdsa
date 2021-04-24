@@ -24,13 +24,12 @@ namespace ECDSA
         public BigInteger N { get => n; set => n = value; }
         public BigInteger H { get => h; set => h = value; }
     
-
-        public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, string seed, Point g, BigInteger n, BigInteger h)
+        
+        public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, Point g, BigInteger n, BigInteger h)
         {
             this.p = p;
             this.a = a;
             this.b = b;
-            this.seed = seed;
             this.G = new Point(g.X, g.Y);
             this.n = n;
             this.h = h;
@@ -38,7 +37,13 @@ namespace ECDSA
         public EllipticCurve()
         {
 
-        } 
+        }
+        public bool isValid(EllipticCurve E)
+        {
+            if (Utility.Modulo(4 * BigInteger.Pow(E.A, 3) + 27 * BigInteger.Pow(E.B, 2), p) == 0) return false;
+            return true;
+        }
+
         public static EllipticCurve ECRandomGenerator(BigInteger p)
         {
             EllipticCurve E = new EllipticCurve();

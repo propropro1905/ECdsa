@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ECGDSA.cs" />
     <Compile Include="ECDSA.cs" />
     <Compile Include="EllipticCurve.cs" />
     <Compile Include="Utility.cs" />

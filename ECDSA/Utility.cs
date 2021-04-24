@@ -42,7 +42,7 @@ namespace ECDSA
             );
 
         // Random generator (thread safe)
-        private static Random Gen
+        public static Random Gen
         {
             get
             {
@@ -186,15 +186,14 @@ namespace ECDSA
         {
             byte[] bytes = N.ToByteArray();
             BigInteger R;
-            Random r = new Random();
 
             do
             {
-                r.NextBytes(bytes);
+                Gen.NextBytes(bytes);
                 bytes[bytes.Length - 1] &= (byte)0x7F; //force sign bit to positive
                 R = new BigInteger(bytes);
             }
-            while (R >= N);
+            while (R > N || R < 1);
             return R;
         }
         public static string byteArrayToBinaryString(Byte[] bytes)
