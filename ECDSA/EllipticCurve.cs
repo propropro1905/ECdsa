@@ -38,9 +38,23 @@ namespace ECDSA
         {
 
         }
-        public bool isValid(EllipticCurve E)
+        public static bool validCurve(EllipticCurve E)
         {
-            if (Utility.Modulo(4 * BigInteger.Pow(E.A, 3) + 27 * BigInteger.Pow(E.B, 2), p) == 0) return false;
+            if (Utility.Modulo(4 * BigInteger.Pow(E.A, 3) + 27 * BigInteger.Pow(E.B, 2), E.P) == 0) return false;
+            return true;
+        }
+        public static bool pointOnCurve(EllipticCurve E, Point P)
+        {
+            if (Utility.Modulo(P.Y * P.Y, E.P) == Utility.Modulo(BigInteger.Pow(P.X, 3) + P.X * E.A + E.B, E.P)) return true;
+            return false;
+        }
+        public static bool cryptographicallyValidCurve(EllipticCurve E)
+        {
+            // check if p is prime
+            if (!Utility.IsProbablyPrime(E.p)) return false;
+            if (!Utility.isFieldElement(E.p, E.A) || !Utility.isFieldElement(E.p, E.B) || !Utility.isFieldElement(E.p, E.G.X) || !Utility.isFieldElement(E.p, E.G.Y)) return false;
+            if (!pointOnCurve(E, E.G)) return false;
+            if (!Utility.IsProbablyPrime(E.N)) return false;
             return true;
         }
 

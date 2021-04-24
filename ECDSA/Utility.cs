@@ -120,7 +120,11 @@ namespace ECDSA
             */
         }
 
-
+        public static bool isFieldElement(BigInteger p, BigInteger n)
+        {
+            if (n < 0 || n > p - 1) return false;
+            return true;
+        }
         public static string PrintBitArray(BitArray bits)
         {
             var sb = new StringBuilder();
