@@ -23,8 +23,8 @@ namespace ECDSA
         public string Seed { get => seed; set => seed = value; }
         public BigInteger N { get => n; set => n = value; }
         public BigInteger H { get => h; set => h = value; }
-    
-        
+
+
         public EllipticCurve(BigInteger p, BigInteger a, BigInteger b, Point g, BigInteger n, BigInteger h)
         {
             this.p = p;
@@ -45,6 +45,7 @@ namespace ECDSA
         }
         public static bool pointOnCurve(EllipticCurve E, Point P)
         {
+            if (P.X == 0 && P.Y == 0) return true;
             if (Utility.Modulo(P.Y * P.Y, E.P) == Utility.Modulo(BigInteger.Pow(P.X, 3) + P.X * E.A + E.B, E.P)) return true;
             return false;
         }
@@ -53,8 +54,17 @@ namespace ECDSA
             // check if p is prime
             if (!Utility.IsProbablyPrime(E.p)) return false;
             if (!Utility.isFieldElement(E.p, E.A) || !Utility.isFieldElement(E.p, E.B) || !Utility.isFieldElement(E.p, E.G.X) || !Utility.isFieldElement(E.p, E.G.Y)) return false;
+            if (!validCurve(E)) return false;
             if (!pointOnCurve(E, E.G)) return false;
             if (!Utility.IsProbablyPrime(E.N)) return false;
+            if (E.N < BigInteger.Pow(2, 160) || E.N < (BigInteger)(4 * Math.Sqrt((double)E.P))) return false;
+            if (Point.Multiply(E.G, E.N, E.A, E.P).X != 0 || Point.Multiply(E.G, E.N, E.A, E.P).Y != 0) return false;
+            for(int i = 1; i <= 20; i++)
+            {
+                if ((BigInteger.Pow(E.P, i) - 1) % E.N == 0) return false;
+            }
+            if (E.N == E.P) return false;
+
             return true;
         }
 
@@ -62,9 +72,9 @@ namespace ECDSA
         {
             EllipticCurve E = new EllipticCurve();
             // asset
-            int t = (int) Math.Ceiling(BigInteger.Log(p, 2));
-            int s =  (int) Math.Floor((double) (t-1)/160);
-            int v = t - 160*s ;
+            int t = (int)Math.Ceiling(BigInteger.Log(p, 2));
+            int s = (int)Math.Floor((double)(t - 1) / 160);
+            int v = t - 160 * s;
             var rng = new RNGCryptoServiceProvider();
 
             BigInteger r = new BigInteger();
@@ -97,7 +107,7 @@ namespace ECDSA
                 w[0] = Utility.BitArrayToStringFormat(w0);
                 for (int i = 1; i <= s; i++)
                 {
-                    BigInteger num= Utility.Modulo(z + i, BigInteger.Pow(2, 160));
+                    BigInteger num = Utility.Modulo(z + i, BigInteger.Pow(2, 160));
                     BitArray si = new BitArray(sha1.ComputeHash(num.ToByteArray()));
                     w[i] = Utility.BitArrayToStringFormat(si);
                 }
@@ -107,7 +117,7 @@ namespace ECDSA
                     concate += wi;
                 }
                 r = new BigInteger(Utility.BitArrayToBytes(Utility.StringToBitArray(concate)));
-            } while (r == 0 || Utility.Modulo(4 * r + 27,p) == 0);
+            } while (r == 0 || Utility.Modulo(4 * r + 27, p) == 0);
             //Random 128 bit interger such that q%p != 0
             BigInteger q = new BigInteger();
             do
@@ -118,9 +128,21 @@ namespace ECDSA
             } while (q % p == 0);
             // a = rq^2, b= rq^3, r.b^2 = a^3 mod p
             E.A = (r * q * q) % p;
-            E.B = (r*BigInteger.Pow(q,3))%p;
+            E.B = (r * BigInteger.Pow(q, 3)) % p;
             E.P = p;
             return E;
+        }
+        public static String ECPrinter(EllipticCurve E)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("p = " + E.P + "\n");
+            sb.Append("a = " + E.A + "\n");
+            sb.Append("b = " + E.B + "\n");
+            sb.Append("G = " + Point.pointPrinter(E.G) + "\n");
+            sb.Append("n = " + E.N + "\n");
+            sb.Append("h = " + E.H + "\n");
+
+            return sb.ToString();
         }
     }
 }

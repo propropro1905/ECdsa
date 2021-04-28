@@ -99,8 +99,11 @@ namespace ECDSA
         }
         public static BigInteger Reverse_modulo(BigInteger a, BigInteger b) // return a^-1 mod b
         {
-            return BigInteger.ModPow(a, b - 2, b);
-            /*
+            if (IsProbablyPrime(b))
+            {
+                return BigInteger.ModPow(a, b - 2, b);
+            }
+            
             else
             {
                 BigInteger i = b, v = 0, d = 1;
@@ -117,7 +120,7 @@ namespace ECDSA
                 if (v < 0) v = (v + b) % b;
                 return v;
             }
-            */
+            
         }
 
         public static bool isFieldElement(BigInteger p, BigInteger n)

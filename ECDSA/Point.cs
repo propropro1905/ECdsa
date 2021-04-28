@@ -11,11 +11,9 @@ namespace ECDSA
     {
         private BigInteger x;
         private BigInteger y;
-        private BigInteger p;
         public bool isZero = false;
         public BigInteger X { get => x; set => x = value; }
         public BigInteger Y { get => y; set => y = value; }
-        public BigInteger P { get => p; set => p = value; }
 
         public Point(BigInteger a, BigInteger b)
         {
