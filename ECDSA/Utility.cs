@@ -203,6 +203,32 @@ namespace ECDSA
             while (R > N || R < 1);
             return R;
         }
+        public static BigInteger EmbedTextToPoint(Byte[] basenumber, int numberofbit)
+        {
+            int partition = (numberofbit / 8 - basenumber.Length);
+            int firstArrayLength;
+            int lastArrayLength;
+            if (partition % 2 == 0)
+            {
+                firstArrayLength = partition / 2;
+                lastArrayLength = partition / 2;
+            }
+            else
+            {
+                firstArrayLength = partition / 2 + 1;
+                lastArrayLength = partition / 2;
+            }
+            byte[] firstRandomPart = new byte[firstArrayLength];
+            byte[] lastRandomPart = new byte[lastArrayLength];
+
+            Gen.NextBytes(firstRandomPart);
+            Gen.NextBytes(lastRandomPart);
+            //make sure number is positive
+            lastRandomPart[lastRandomPart.Length - 1] &= (byte)0x7F;
+            IEnumerable<byte> number = firstRandomPart.Concat(basenumber).Concat(lastRandomPart);
+            return new BigInteger(number.ToArray());
+        }
+
         public static string byteArrayToBinaryString(Byte[] bytes)
         {
             StringBuilder sb = new StringBuilder();

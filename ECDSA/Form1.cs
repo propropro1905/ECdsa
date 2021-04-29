@@ -77,7 +77,7 @@ namespace ECDSA
                 namedCurves.Items.AddRange(items.ToArray());
             }
         }
-
+        
         private void GenerateKeyPair_Click(object sender, EventArgs e)
         {
             var watch = new Stopwatch();
