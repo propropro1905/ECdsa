@@ -17,12 +17,21 @@ namespace ECDSA
 
         // testing curve y2=x3+7 mod x
 
-
+        /// <summary>
+        /// ecdsa
+        /// </summary>
         HashAlgorithm sha512 = SHA512.Create();
         EllipticCurve E;
         Tuple<BigInteger, Point> keyPair;
         Tuple<BigInteger, BigInteger> sign;
         String mess;
+
+        /// <summary>
+        /// ECelgamal
+        /// </summary>
+        Tuple<BigInteger, Point> ElgamalBobKeyPair;
+        List<Tuple<Point, Point>> cyphertext;
+
         private void verify_Click(object sender, EventArgs e)
         {
             var watch = new Stopwatch();
@@ -137,10 +146,52 @@ namespace ECDSA
 
         private void clear_btn_Click(object sender, EventArgs e)
         {
+            reset();
             output.Text = string.Empty;
+            
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            reset();
+        }
+        private void reset()
+        {
+            message.Text = string.Empty;
+            output.Text = string.Empty;
+            ELgamalBobPrivateKey.Text = string.Empty;
+            ElgammaBobPublicKey.Text = string.Empty;
             privatekey.Text = string.Empty;
             publickey.Text = string.Empty;
-            message.Text = string.Empty;
+            mess = string.Empty;
+            output.Text = EllipticCurve.ECPrinter(E);
+        }
+
+        private void ElgamalEncryption_Click(object sender, EventArgs e)
+        {
+            if (message.Text == string.Empty) output.Text += "Please enter message \n";
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            cyphertext = ECElgamal.Encryption(message.Text, E, ElgamalBobKeyPair.Item2);
+            
+            foreach(var text in cyphertext)
+            {
+                output.Text += Point.pointPrinter(text.Item1) + "," + Point.pointPrinter(text.Item2) + "\n";
+            }
+            watch.Stop();
+            output.Text += $"encrypt in {watch.ElapsedMilliseconds} ms \n";
+        }
+
+        private void BobButton_Click(object sender, EventArgs e)
+        {
+            ElgamalBobKeyPair = ECDSA.keyGen(E);
+            ELgamalBobPrivateKey.Text += ElgamalBobKeyPair.Item1;
+            ElgammaBobPublicKey.Text += Point.pointPrinter(ElgamalBobKeyPair.Item2);
+        }
+
+        private void decrypt_Click(object sender, EventArgs e)
+        {
+            output.Text += "decrypted message is: " + ECElgamal.Decryption(cyphertext, ElgamalBobKeyPair.Item1, E);
         }
     }
 }

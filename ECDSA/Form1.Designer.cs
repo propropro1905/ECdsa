@@ -48,17 +48,26 @@ namespace ECDSA
             this.label3 = new System.Windows.Forms.Label();
             this.clear_btn = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ECDSAtab = new System.Windows.Forms.TabPage();
+            this.Elgamaltab = new System.Windows.Forms.TabPage();
+            this.MStab = new System.Windows.Forms.TabPage();
+            this.BobButton = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ELgamalBobPrivateKey = new System.Windows.Forms.RichTextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.ElgammaBobPublicKey = new System.Windows.Forms.RichTextBox();
+            this.ElgamalEncryption = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.ECDSAtab.SuspendLayout();
+            this.Elgamaltab.SuspendLayout();
             this.SuspendLayout();
             // 
             // output
             // 
-            this.output.Location = new System.Drawing.Point(360, 12);
+            this.output.Location = new System.Drawing.Point(360, 45);
             this.output.Name = "output";
-            this.output.Size = new System.Drawing.Size(552, 392);
+            this.output.Size = new System.Drawing.Size(552, 517);
             this.output.TabIndex = 3;
             this.output.Text = "";
             // 
@@ -88,7 +97,7 @@ namespace ECDSA
             this.ECDSAType.Items.AddRange(new object[] {
             "ECDSA",
             "ECGDSA"});
-            this.ECDSAType.Location = new System.Drawing.Point(9, 21);
+            this.ECDSAType.Location = new System.Drawing.Point(9, 40);
             this.ECDSAType.Name = "ECDSAType";
             this.ECDSAType.Size = new System.Drawing.Size(319, 21);
             this.ECDSAType.TabIndex = 9;
@@ -97,7 +106,7 @@ namespace ECDSA
             // signtype
             // 
             this.signtype.AutoSize = true;
-            this.signtype.Location = new System.Drawing.Point(6, 5);
+            this.signtype.Location = new System.Drawing.Point(6, 24);
             this.signtype.Name = "signtype";
             this.signtype.Size = new System.Drawing.Size(91, 13);
             this.signtype.TabIndex = 10;
@@ -141,7 +150,7 @@ namespace ECDSA
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(9, 50);
+            this.button2.Location = new System.Drawing.Point(9, 78);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(108, 193);
             this.button2.TabIndex = 15;
@@ -151,7 +160,7 @@ namespace ECDSA
             // 
             // privatekey
             // 
-            this.privatekey.Location = new System.Drawing.Point(126, 66);
+            this.privatekey.Location = new System.Drawing.Point(126, 94);
             this.privatekey.Name = "privatekey";
             this.privatekey.Size = new System.Drawing.Size(205, 79);
             this.privatekey.TabIndex = 16;
@@ -159,7 +168,7 @@ namespace ECDSA
             // 
             // publickey
             // 
-            this.publickey.Location = new System.Drawing.Point(123, 164);
+            this.publickey.Location = new System.Drawing.Point(123, 192);
             this.publickey.Name = "publickey";
             this.publickey.Size = new System.Drawing.Size(208, 79);
             this.publickey.TabIndex = 17;
@@ -168,7 +177,7 @@ namespace ECDSA
             // privatekey_label
             // 
             this.privatekey_label.AutoSize = true;
-            this.privatekey_label.Location = new System.Drawing.Point(120, 50);
+            this.privatekey_label.Location = new System.Drawing.Point(120, 78);
             this.privatekey_label.Name = "privatekey_label";
             this.privatekey_label.Size = new System.Drawing.Size(61, 13);
             this.privatekey_label.TabIndex = 18;
@@ -177,7 +186,7 @@ namespace ECDSA
             // Publickey_label
             // 
             this.Publickey_label.AutoSize = true;
-            this.Publickey_label.Location = new System.Drawing.Point(120, 148);
+            this.Publickey_label.Location = new System.Drawing.Point(120, 176);
             this.Publickey_label.Name = "Publickey_label";
             this.Publickey_label.Size = new System.Drawing.Size(57, 13);
             this.Publickey_label.TabIndex = 19;
@@ -220,7 +229,7 @@ namespace ECDSA
             // 
             // clear_btn
             // 
-            this.clear_btn.Location = new System.Drawing.Point(360, 427);
+            this.clear_btn.Location = new System.Drawing.Point(360, 9);
             this.clear_btn.Name = "clear_btn";
             this.clear_btn.Size = new System.Drawing.Size(101, 23);
             this.clear_btn.TabIndex = 24;
@@ -230,42 +239,124 @@ namespace ECDSA
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.ECDSAtab);
+            this.tabControl1.Controls.Add(this.Elgamaltab);
+            this.tabControl1.Controls.Add(this.MStab);
             this.tabControl1.Location = new System.Drawing.Point(12, 72);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(342, 332);
             this.tabControl1.TabIndex = 25;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
-            // tabPage1
+            // ECDSAtab
             // 
-            this.tabPage1.Controls.Add(this.signtype);
-            this.tabPage1.Controls.Add(this.ECDSAType);
-            this.tabPage1.Controls.Add(this.button2);
-            this.tabPage1.Controls.Add(this.privatekey_label);
-            this.tabPage1.Controls.Add(this.privatekey);
-            this.tabPage1.Controls.Add(this.Publickey_label);
-            this.tabPage1.Controls.Add(this.publickey);
-            this.tabPage1.Controls.Add(this.verify);
-            this.tabPage1.Controls.Add(this.Sign);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(334, 306);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.ECDSAtab.Controls.Add(this.signtype);
+            this.ECDSAtab.Controls.Add(this.ECDSAType);
+            this.ECDSAtab.Controls.Add(this.button2);
+            this.ECDSAtab.Controls.Add(this.privatekey_label);
+            this.ECDSAtab.Controls.Add(this.privatekey);
+            this.ECDSAtab.Controls.Add(this.Publickey_label);
+            this.ECDSAtab.Controls.Add(this.publickey);
+            this.ECDSAtab.Controls.Add(this.verify);
+            this.ECDSAtab.Controls.Add(this.Sign);
+            this.ECDSAtab.Location = new System.Drawing.Point(4, 22);
+            this.ECDSAtab.Name = "ECDSAtab";
+            this.ECDSAtab.Padding = new System.Windows.Forms.Padding(3);
+            this.ECDSAtab.Size = new System.Drawing.Size(334, 306);
+            this.ECDSAtab.TabIndex = 0;
+            this.ECDSAtab.Text = "ECDSA";
+            this.ECDSAtab.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // Elgamaltab
             // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(334, 306);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.Elgamaltab.Controls.Add(this.button3);
+            this.Elgamaltab.Controls.Add(this.ElgamalEncryption);
+            this.Elgamaltab.Controls.Add(this.BobButton);
+            this.Elgamaltab.Controls.Add(this.label4);
+            this.Elgamaltab.Controls.Add(this.ELgamalBobPrivateKey);
+            this.Elgamaltab.Controls.Add(this.label5);
+            this.Elgamaltab.Controls.Add(this.ElgammaBobPublicKey);
+            this.Elgamaltab.Location = new System.Drawing.Point(4, 22);
+            this.Elgamaltab.Name = "Elgamaltab";
+            this.Elgamaltab.Padding = new System.Windows.Forms.Padding(3);
+            this.Elgamaltab.Size = new System.Drawing.Size(334, 306);
+            this.Elgamaltab.TabIndex = 1;
+            this.Elgamaltab.Text = "ECElgamal";
+            this.Elgamaltab.UseVisualStyleBackColor = true;
+            // 
+            // MStab
+            // 
+            this.MStab.Location = new System.Drawing.Point(4, 22);
+            this.MStab.Name = "MStab";
+            this.MStab.Size = new System.Drawing.Size(334, 306);
+            this.MStab.TabIndex = 2;
+            this.MStab.Text = "Massey-omura";
+            this.MStab.UseVisualStyleBackColor = true;
+            // 
+            // BobButton
+            // 
+            this.BobButton.Location = new System.Drawing.Point(9, 6);
+            this.BobButton.Name = "BobButton";
+            this.BobButton.Size = new System.Drawing.Size(96, 98);
+            this.BobButton.TabIndex = 20;
+            this.BobButton.Text = "Generate Bob\'s Key Pair";
+            this.BobButton.UseVisualStyleBackColor = true;
+            this.BobButton.Click += new System.EventHandler(this.BobButton_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(141, 6);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(61, 13);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Private Key";
+            // 
+            // ELgamalBobPrivateKey
+            // 
+            this.ELgamalBobPrivateKey.Location = new System.Drawing.Point(144, 22);
+            this.ELgamalBobPrivateKey.Name = "ELgamalBobPrivateKey";
+            this.ELgamalBobPrivateKey.Size = new System.Drawing.Size(181, 40);
+            this.ELgamalBobPrivateKey.TabIndex = 21;
+            this.ELgamalBobPrivateKey.Text = "";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(141, 65);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 13);
+            this.label5.TabIndex = 24;
+            this.label5.Text = "Public Key";
+            // 
+            // ElgammaBobPublicKey
+            // 
+            this.ElgammaBobPublicKey.Location = new System.Drawing.Point(144, 81);
+            this.ElgammaBobPublicKey.Name = "ElgammaBobPublicKey";
+            this.ElgammaBobPublicKey.Size = new System.Drawing.Size(181, 40);
+            this.ElgammaBobPublicKey.TabIndex = 22;
+            this.ElgammaBobPublicKey.Text = "";
+            // 
+            // ElgamalEncryption
+            // 
+            this.ElgamalEncryption.Location = new System.Drawing.Point(63, 137);
+            this.ElgamalEncryption.Name = "ElgamalEncryption";
+            this.ElgamalEncryption.Size = new System.Drawing.Size(75, 23);
+            this.ElgamalEncryption.TabIndex = 25;
+            this.ElgamalEncryption.Text = "Encrypt";
+            this.ElgamalEncryption.UseVisualStyleBackColor = true;
+            this.ElgamalEncryption.Click += new System.EventHandler(this.ElgamalEncryption_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(144, 137);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 26;
+            this.button3.Text = "Decrypt";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.decrypt_Click);
             // 
             // Form1
             // 
@@ -285,8 +376,10 @@ namespace ECDSA
             this.Name = "Form1";
             this.Text = "s";
             this.tabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.ECDSAtab.ResumeLayout(false);
+            this.ECDSAtab.PerformLayout();
+            this.Elgamaltab.ResumeLayout(false);
+            this.Elgamaltab.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -312,8 +405,16 @@ namespace ECDSA
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button clear_btn;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage ECDSAtab;
+        private System.Windows.Forms.TabPage Elgamaltab;
+        private System.Windows.Forms.TabPage MStab;
+        private System.Windows.Forms.Button BobButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.RichTextBox ELgamalBobPrivateKey;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RichTextBox ElgammaBobPublicKey;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button ElgamalEncryption;
     }
 }
 
