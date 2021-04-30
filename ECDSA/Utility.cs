@@ -128,6 +128,12 @@ namespace ECDSA
             if (n < 0 || n > p - 1) return false;
             return true;
         }
+        /***
+         * functions to process binary string
+         * 
+         * 
+         * 
+         */
         public static string PrintBitArray(BitArray bits)
         {
             var sb = new StringBuilder();
@@ -189,6 +195,21 @@ namespace ECDSA
             }
             return bitt;
         }
+        public static string byteArrayToBinaryString(Byte[] bytes)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Convert.ToString(bytes[bytes.Length - 1], 2));
+            for (int i = bytes.Length - 2; i >= 0; i--)
+            {
+                sb.Append(Convert.ToString(bytes[i], 2).PadLeft(8, '0')); //fill empty bit with 0
+            }
+            return sb.ToString();
+        }
+        /// <summary>
+        /// random big integer below N
+        /// </summary>
+        /// <param name="N"></param>
+        /// <returns></returns>
         public static BigInteger RandomIntegerBelow(BigInteger N)
         {
             byte[] bytes = N.ToByteArray();
@@ -203,7 +224,12 @@ namespace ECDSA
             while (R > N || R < 1);
             return R;
         }
-        public static BigInteger EmbedTextToPoint(Byte[] basenumber, int numberofbit)
+        /***
+         * process text for cryptosystem
+         * 
+         * 
+         */
+        public static BigInteger GetProcessedNumber(Byte[] basenumber, int numberofbit)
         {
             int partition = (numberofbit / 8 - basenumber.Length);
             int firstArrayLength;
@@ -228,16 +254,102 @@ namespace ECDSA
             IEnumerable<byte> number = firstRandomPart.Concat(basenumber).Concat(lastRandomPart);
             return new BigInteger(number.ToArray());
         }
-
-        public static string byteArrayToBinaryString(Byte[] bytes)
+        public static string GetTextFromProcessedNumber(BigInteger processedNum, int textbit )
         {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(Convert.ToString(bytes[bytes.Length - 1], 2));
-            for (int i = bytes.Length - 2; i >= 0; i--)
+            byte[] bytes = processedNum.ToByteArray();
+            int partition = (bytes.Length - textbit / 8);
+            int firstArrayLength;
+
+            if (partition % 2 == 0)
             {
-                sb.Append(Convert.ToString(bytes[i], 2).PadLeft(8, '0')); //fill empty bit with 0
+                firstArrayLength = partition / 2;
             }
-            return sb.ToString();
+            else
+            {
+                firstArrayLength = partition / 2 + 1;
+            }
+            byte[] messageToByte = new byte[textbit/8];
+            for (int i = 0; i < textbit / 8; i++)
+            {
+                messageToByte[i] = bytes[i + firstArrayLength];
+            }
+            return Encoding.ASCII.GetString(messageToByte);
+        }
+        /***
+         * calculate x^2=y mod p
+         * using euclide citerion to determine if n has squareroot mod p
+         * using formular in the case p = 3 mod 4
+         * to do : develope Tonelli–Shanks algorithm for 
+         */
+        public static bool hasSquareRoot(BigInteger n, BigInteger p)
+        {
+            if (n == 0) return false;
+            if (BigInteger.ModPow(n, (p - 1) / 2, p) == 1) return true;
+            return false;
+
+        }
+        public static BigInteger squareRoot(BigInteger n, BigInteger p)
+        {
+            if (p % 4 != 3)
+            {
+                return BigInteger.Zero;
+            }
+
+            // Try "+-(n^((p + 1)/4))"
+            n = n % p;
+            BigInteger x = BigInteger.ModPow(n, (p + 1) / 4, p);
+            if ((x * x) % p == n)
+            {
+                return x;
+            }
+            x = p - x;
+            if ((x * x) % p == n)
+            {
+                return x;
+            }
+            return BigInteger.Zero;
+        }
+        /// <summary>
+        /// embed text on elliptic curve
+        /// </summary>
+        /// <param name="m"></param>
+        /// <param name="E"></param>
+        /// <returns></returns>
+        public static List<Point> EmbededTextOnCurve(string m, EllipticCurve E)
+        {
+            List<Point> messagePoints = new List<Point>();
+
+
+            int lengthOfPoint = (int)((BigInteger.Log(E.P, 2)) / 8);//get a point with x smaller than P
+            int lengthEmbeded = 64; // embed per 64 bits
+            while (m.Length % (lengthEmbeded / 8) != 0) // fill m with " " until m.Length % 8 = 0 
+            {
+                m += " ";
+            }
+            List<string> substring = Split(m, lengthEmbeded / 8).ToList();
+
+
+            foreach (string s in substring)
+            {
+                BigInteger xP = 0, yP = 0;
+                do
+                {
+                    do
+                    {
+                        xP = Utility.GetProcessedNumber(Encoding.ASCII.GetBytes(s), lengthOfPoint * 8);
+                    } while (!Utility.hasSquareRoot(xP, E.P));
+                    yP = Utility.squareRoot(BigInteger.Pow(xP, 3) + E.A * xP + E.B, E.P);
+                } while (yP == 0);
+
+                messagePoints.Add(new Point(xP, yP));
+            }
+
+            return messagePoints;
+        }
+        private static IEnumerable<string> Split(string str, int chunkSize)
+        {
+            return Enumerable.Range(0, str.Length / chunkSize)
+                .Select(i => str.Substring(i * chunkSize, chunkSize));
         }
     }
 }

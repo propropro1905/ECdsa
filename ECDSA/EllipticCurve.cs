@@ -67,7 +67,7 @@ namespace ECDSA
 
             return true;
         }
-
+        /**
         public static EllipticCurve ECRandomGenerator(BigInteger p)
         {
             EllipticCurve E = new EllipticCurve();
@@ -132,6 +132,7 @@ namespace ECDSA
             E.P = p;
             return E;
         }
+        */
         public static String ECPrinter(EllipticCurve E)
         {
             StringBuilder sb = new StringBuilder();
