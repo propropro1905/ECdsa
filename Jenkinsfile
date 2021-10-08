@@ -3,7 +3,7 @@
     stages{
       stage('Build'){
         steps{
-             sh 'dotnet build ECDSA/ECDSA.sln --configuration Release --no-restore'
+             sh '$HOME/.dotnet/dotnet build ECDSA/ECDSA.sln --configuration Release --no-restore'
         }
       }
     }
